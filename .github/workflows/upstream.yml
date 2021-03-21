@@ -28,14 +28,14 @@ jobs:
         fetch-depth: 0
         lfs: true
 
-    - name: Set git identity
+    - name: 设置git身份
       run : |
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
         
         
         
-    - name: Syn upstream
+    - name: 同步上游
       run: |
         rm -rf `find -maxdepth 1 -type d -name "[!.]*" ! -path "./diy"`
         git rm -r --cache *
@@ -106,14 +106,15 @@ jobs:
         rm -rf .svn
         echo -e "\q" | svn co https://github.com/immortalwrt/immortalwrt/branches/master/package/lienol ./
         rm -rf .svn
-    - name: SSH connection to Actions
+        
+    - name: SSH连接
       uses: longcat99/debugger-action@master
       if: 1 == 0
 
 
 
 
-    - name: Modify
+    - name: 调整设置
       run: |
         rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat,dnsforwarder} cups* subweb \
         mt-drivers coremark npc luci-app-{flowoffload,sfe,appfilter,unblockneteasemusic*,adbyby-plus,advancedsetting,softethervpn,chinadns,docker,samba4} fcgiwrap \
@@ -144,8 +145,10 @@ jobs:
         find ./*/ -maxdepth 1 -name "Makefile" ! -path "*tinyfecvpn*" ! -path "*gowebdav*" | xargs -i sed -i "s/PKG_HASH:=.*/PKG_HASH:=skip/g" {}
         sed -i 's/SUBDIRS=/M=/g' */Makefile
         # sed -i 's/\(add ucitrack \(.*\)\)/\1\n\tservice \2 enable/g' luci-app*/root/etc/uci-defaults/*
-    - name: Apply patches
-      # run: find "diy/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 -E --forward --no-backup-if-mismatch"
+        
+    - name: 应用补丁
+      run: |
+        # find "diy/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 -E --forward --no-backup-if-mismatch"
       
       
 
