@@ -6,11 +6,9 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: Merge-upstream
+name: 同步上游
 on:
-  push:
-    paths:
-      - '.github/workflows/upstream.yml'
+  workflow_dispatch:
   schedule:
     - cron: 0 16 * * *
   watch:
@@ -34,6 +32,9 @@ jobs:
       run : |
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         git config --global user.name "github-actions[bot]"
+        
+        
+        
     - name: Syn upstream
       run: |
         rm -rf `find -maxdepth 1 -type d -name "[!.]*" ! -path "./diy"`
@@ -109,6 +110,9 @@ jobs:
       uses: longcat99/debugger-action@master
       if: 1 == 0
 
+
+
+
     - name: Modify
       run: |
         rm -Rf */.git */.svn qt5 openwrt-{chinadns*,simple-obfs,v2ray-plugin,fullconenat,dnsforwarder} cups* subweb \
@@ -142,12 +146,16 @@ jobs:
         # sed -i 's/\(add ucitrack \(.*\)\)/\1\n\tservice \2 enable/g' luci-app*/root/etc/uci-defaults/*
     - name: Apply patches
       run: find "diy/patches" -type f -name '*.patch' -print0 | sort -z | xargs -I % -t -0 -n 1 sh -c "cat '%'  | patch -d './' -p1 -E --forward --no-backup-if-mismatch"
+      
+      
 
     - name: Apply
       run: |
         git add .
         git commit -m "update" || true
         git push
+        
+        
         
     - name: Delete workflow runs
       uses: Mattraks/delete-workflow-runs@main
