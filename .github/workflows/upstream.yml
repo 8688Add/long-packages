@@ -51,7 +51,7 @@ jobs:
         git clone --depth 1 https://github.com/garypang13/luci-theme-edge
         git clone --depth 1 https://github.com/garypang13/autosamba
         git clone --depth 1 https://github.com/garypang13/luci-app-homebridge
-        git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon
+        git clone --depth 1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon
         git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config
         git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr
         git clone --depth 1 https://github.com/jerrykuku/luci-app-ttnode
@@ -92,6 +92,16 @@ jobs:
         svn co https://github.com/sundaqiang/openwrt-packages/trunk/luci-app-services-wolplus
         # svn co https://github.com/brvphoenix/wrtbwmon/trunk/wrtbwmon
         svn co https://github.com/openwrt/packages/trunk/net/openvpn
+        
+        git clone --depth 1 -b 18.06 https://github.com/riverscn/luci-app-omcproxy
+        git clone --depth 1 https://github.com/esirplayground/luci-app-LingTiGameAcc
+        git clone --depth 1 https://github.com/esirplayground/LingTiGameAcc
+        git clone --depth 1 https://github.com/sirpdboy/luci-app-autotimeset
+        svn co https://github.com/sirpdboy/netspeedtest/trunk/luci-app-NetSpeedTest
+        svn co https://github.com/sirpdboy/netspeedtest/trunk/speedtest
+        git clone --depth 1 https://github.com/sirpdboy/luci-theme-opentoks
+        
+        
         
         git clone --depth 1 https://github.com/Lienol/openwrt-package && mv -n openwrt-package/* ./ ; rm -rf openwrt-package
         rm -rf .svn
